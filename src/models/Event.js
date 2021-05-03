@@ -1,6 +1,7 @@
 class Event {
-    constructor(uid, name, description, photoUrl, candidateLimit, type, price, state, createdAt, startDate, endDate, otherDetails) {
+    constructor(uid, eventOwnerUid, name, description, photoUrl, candidateLimit, type, price,, state, createdAt, startDate, endDate, otherDetails) {
         this.uid = uid
+        this.eventOwnerUid = eventOwnerUid
         this.name = name
         this.description = description
         this.photoUrl = photoUrl
