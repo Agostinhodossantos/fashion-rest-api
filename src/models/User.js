@@ -1,5 +1,5 @@
 class User {
-    constructor(uid, name,email,, biography,phoneNumber,  profileUrl, location, gender, state, privileges, createdAt){
+    constructor(uid, name,email,biography,phoneNumber,  profileUrl, location, gender, state, privileges, createdAt){
         this.uid = uid
         this.name = name
         this.email = email
