@@ -19,7 +19,8 @@ const updateUserData = async(req, res) => {
     if(user != undefined || user != null) {
         if (uid != undefined || uid != null) {
             let response = await updateUser(uid.toString(), user)
-            res.status(response.status).send(response)
+            console.log(response)
+            // res.status(response.status).send(response)
         } else {
             res.status(400).send({status: 400 ,message: "Request missing a required parameter ID"})
         }

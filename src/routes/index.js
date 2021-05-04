@@ -8,6 +8,7 @@ let routes = (app) => {
     router.post("/user", userController.createUser)
     router.get("/users", userController.getAllUser)
     router.get("/user/:id", userController.getUser)
+    router.put("/user/:id", userController.updateUserData)
 
     app.use(router)
 }

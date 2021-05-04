@@ -9,6 +9,7 @@ const usersRef =  firestore.collection("users")
 const successResponse = {status: 200, message: "created successfully"}
 const errorResponse = {status: 500, message: "An error has occurred"}
 
+// CRUD USER
 
 async function setUser(user) {
     var res = await usersRef.doc(user.uid).set(user).then(() => {
@@ -25,6 +26,7 @@ async function updateUser(uid, user) {
    }).catch((error) => {
       return {status: 500, message: `${error}`}
    })
+   return res
 }
  
 async function getUsers() {
@@ -44,6 +46,9 @@ async function getUsers() {
     })
     return user
  }
+ 
+ // END CRUD USER
+
  
 
  module.exports = {
