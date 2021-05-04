@@ -6,4 +6,6 @@ class Vote {
     }
 }
 
-module.exports = Vote
+module.exports = {
+    Vote
+}

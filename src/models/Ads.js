@@ -9,4 +9,6 @@ class Ads {
 }
 
 
-module.exports = Ads
+module.exports = { 
+    Ads
+}

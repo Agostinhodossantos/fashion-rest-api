@@ -1,11 +1,13 @@
-class Event {
-    constructor(uid, eventOwnerUid, name, description, photoUrl, candidateLimit, type, price,, state, createdAt, startDate, endDate, otherDetails) {
+class Concourse {
+    constructor(uid, eventOwnerUid, title, description, photoUrl, candidateLimit, startDateCandidate, endDateCandidate, type, price,state, createdAt, startDate, endDate, otherDetails) {
         this.uid = uid
         this.eventOwnerUid = eventOwnerUid
-        this.name = name
+        this.title = title
         this.description = description
         this.photoUrl = photoUrl
         this.candidateLimit = candidateLimit
+        this.startDateCandidate = startDateCandidate
+        this.endDateCandidate = endDateCandidate
         this.type = type
         this.price = price
         this.state = state
@@ -17,5 +19,6 @@ class Event {
 }
 
 
-
-module.exports = Event
+module.exports = {
+    Concourse
+}

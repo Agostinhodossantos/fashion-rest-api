@@ -1,7 +1,11 @@
 class User {
-    constructor(uid, name, profileUrl, location, gender, state, privileges, createdAt){
+    constructor(uid, name,email,, biography,phoneNumber,  profileUrl, location, gender, state, privileges, createdAt){
         this.uid = uid
         this.name = name
+        this.email = email
+        this.fbAcount = fbA
+        this.biography = biography
+        this.phoneNumber = phoneNumber
         this.profileUrl = profileUrl
         this.location = location
         this.gender = gender
@@ -10,6 +14,8 @@ class User {
         this.createdAt = createdAt
     }
 }
+
+
 
 module.exports = {
     User
