@@ -3,7 +3,6 @@ class User {
         this.uid = uid
         this.name = name
         this.email = email
-        this.fbAcount = fbA
         this.biography = biography
         this.phoneNumber = phoneNumber
         this.profileUrl = profileUrl
@@ -16,7 +15,11 @@ class User {
 }
 
 
+let Privileges = {
+    USER: 'user',
+    HOST: 'host'
+}
 
 module.exports = {
-    User
+    User, Privileges
 }
