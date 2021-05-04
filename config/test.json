@@ -1,0 +1,32 @@
+{
+    "user":{
+        "uid": "124" ,
+        "name": "Agostinho Dos Santos",
+        "email": "agostinho@gmail.com",
+        "biography": "biography",
+        "phoneNumber": "841234455",  
+        "profileUrl": "url", 
+        "location": "Maputo", 
+        "gender": "25-04-2021", 
+        "state": "active", 
+        "privileges": "user"
+     },
+    
+    "concourse": {
+        "uid": "1", 
+        "eventOwnerUid": "1", 
+        "title": "Fashion", 
+        "description": "Fashion week", 
+        "photoUrl":"url", 
+        "candidateLimit": "200", 
+        "startDateCandidate": "10-05-2021", 
+        "endDateCandidate": "20-05-2021", 
+        "type": "free", 
+        "price": "",
+        "state": "active", 
+        "createdAt": "", 
+        "startDate": "20-05-2021", 
+        "endDate":"20-05-2021", 
+        "otherDetails": ""
+    }
+}

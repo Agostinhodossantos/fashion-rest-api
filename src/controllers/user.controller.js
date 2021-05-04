@@ -16,8 +16,8 @@ const updateUserData = async(req, res) => {
     let uid = req.params.id
     let user = req.body
 
-    if(user != undefined || user != null) {
-        if (uid != undefined || uid != null) {
+    if(user != undefined && user != null) {
+        if (uid != undefined && uid != null) {
             let response = await updateUser(uid.toString(), user)
             console.log(response)
             // res.status(response.status).send(response)
