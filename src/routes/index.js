@@ -3,6 +3,7 @@ const router = express.Router()
 const userController = require("../controllers/user.controller")
 const concourseController = require("../controllers/concourse.controller")
 const candidateController = require("../controllers/candidate.controller")
+const votesController = require("../controllers/votes.controller")
 
 
 let routes = (app) => {
@@ -24,6 +25,9 @@ let routes = (app) => {
     router.put("/concourse/:uid_concourse/candidate/:uid_candidate", candidateController.updateCurrentCandidate)
     router.delete("/concourse/:uid_concourse/candidate/:uid_candidate", candidateController.deleteCurrentCandidate)
 
+    router.get("/concourse/:uid_concourse/candidate/:uid_candidate/votes", votesController.getAllVotes)
+    router.post("/concourse/:uid_concourse/candidate/:uid_candidate/vote", votesController.createVote)
+    router.delete("/concourse/:uid_concourse/candidate/:uid_candidate/vote", votesController.deleteCurrentVote)
 
     app.use(router)
 }

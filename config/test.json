@@ -28,5 +28,13 @@
         "startDate": "20-05-2021", 
         "endDate":"20-05-2021", 
         "otherDetails": ""
-    }
+    },
+
+    "candidate":{
+        "uid": 123, 
+        "userUid":143, 
+        "eventUid": 1233, 
+        "name": "Agostinho",
+        "photoUrl": "url"
+     }
 }

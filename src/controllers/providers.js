@@ -153,6 +153,59 @@ async function getUsers() {
          return response
  }
 
+ // END CANDIDATE
+
+ //CRUD VOTES
+
+ async function setVote(uidConcourse, uidCandidate, vote) {
+    var response = await concourseRef
+         .doc(uidConcourse)
+         .collection("candidates")
+         .doc(uidCandidate)
+         .collection("votes")
+         .doc(vote.uid+"")
+         .set(vote)
+         .then(() => {
+            return {status: 200, message: "Vote successfully created"}
+         }).catch((error) => {
+            return {status: 500, message: `error: ${error}`}
+         })
+         return response
+ }
+
+ async function getVotes(uidConcourse, uidCandidate) {
+   var allVotes = []
+   await concourseRef
+      .doc(uidConcourse)
+      .collection("candidates")
+      .doc(uidCandidate)
+      .collection("votes")
+      .get()
+      .then((value) => {
+         console.log(value)
+         value.forEach((vote) => {
+            allVotes.push(vote.data())
+           
+         })
+      })
+
+      return allVotes
+ }
+
+ async function deleteVote(uidConcourse, uidCandidate, uidVote) {
+   await concourseRef
+      .doc(uidConcourse)
+      .collection("candidates")
+      .doc(uidCandidate)
+      .collection("votes")
+      .doc(uidVote)
+      .delete()
+      .then(() => {
+         return {status: 200, message: "vote successfully deleted"}
+      }).catch((error) => {
+         return {status: 500, message: `error: ${error}`}
+      })
+ }
 
 
 
@@ -173,4 +226,8 @@ async function getUsers() {
      getCandidates,
      updateCandidate,
      deleteCandidate,
+
+     setVote,
+     getVotes,
+     deleteVote
  }
