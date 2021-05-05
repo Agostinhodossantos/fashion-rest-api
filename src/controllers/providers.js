@@ -100,7 +100,7 @@ async function getUsers() {
   //CRUD CANDIDATE
 
  async function setCandidate(uidConcourse, candidate) {
-    var response = await concourseRef.doc(uidConcourse).collection("candidates").doc(candidate.uid).set(candidate).then(() => {
+    var response = await concourseRef.doc(uidConcourse).collection("candidates").doc(candidate.uid+"").set(candidate).then(() => {
        return successResponse
     }).catch((error) => {
        return {status: 500, message: `${error}`}
@@ -110,7 +110,7 @@ async function getUsers() {
 
  async function getCandidates(uidConcourse) {
     var allCandidates = []
-     await concourseRef.doc(uidConcourse).then((value) => {
+     await concourseRef.doc(uidConcourse).collection("candidates").get().then((value) => {
        value.forEach(candidate => {
           allCandidates.push(candidate.data())
        })

@@ -43,7 +43,7 @@ const getConcourse = async(req, res) => {
         if (concourse != undefined) {
             res.status(200).send(concourse)
         } else {
-            res.status(500).send({status: 500, message: `concourse with ${uid} not found`})
+            res.status(404).send({status: 404, message: `concourse with ${uid} not found`})
         }
     } else {
         res.status(400).send({status: 400 ,message: "Request missing a required parameter ID"})

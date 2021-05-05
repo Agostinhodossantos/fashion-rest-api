@@ -6,7 +6,11 @@ const getUser = async(req, res) => {
     let uid = req.params.id
     if(uid != undefined || uid != null) {
         let user = await getUserById(uid.toString())
-        res.status(200).send(user)
+        if(user != undefined) {
+            res.status(200).send(user)
+        } else {
+            res.status( 404).send(null)
+        }
     } else {
         res.status(400).send({status: 400 ,message: "Request missing a required parameter ID"})
     }
