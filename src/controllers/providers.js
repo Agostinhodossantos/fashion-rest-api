@@ -176,24 +176,23 @@ async function getUsers() {
  async function getVotes(uidConcourse, uidCandidate) {
    var allVotes = []
    await concourseRef
-      .doc(uidConcourse)
-      .collection("candidates")
-      .doc(uidCandidate)
-      .collection("votes")
-      .get()
-      .then((value) => {
-         console.log(value)
-         value.forEach((vote) => {
-            allVotes.push(vote.data())
-           
+         .doc(uidConcourse)
+         .collection("candidates")
+         .doc(uidCandidate)
+         .collection("votes")
+         .get()
+         .then((value) => {
+            console.log(value)
+            value.forEach((vote) => {
+               allVotes.push(vote.data())
+            })
          })
-      })
 
       return allVotes
  }
 
  async function deleteVote(uidConcourse, uidCandidate, uidVote) {
-   await concourseRef
+   var response = await concourseRef
       .doc(uidConcourse)
       .collection("candidates")
       .doc(uidCandidate)
@@ -205,6 +204,8 @@ async function getUsers() {
       }).catch((error) => {
          return {status: 500, message: `error: ${error}`}
       })
+
+      return response
  }
 
 

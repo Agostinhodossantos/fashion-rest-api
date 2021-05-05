@@ -27,7 +27,7 @@ let routes = (app) => {
 
     router.get("/concourse/:uid_concourse/candidate/:uid_candidate/votes", votesController.getAllVotes)
     router.post("/concourse/:uid_concourse/candidate/:uid_candidate/vote", votesController.createVote)
-    router.delete("/concourse/:uid_concourse/candidate/:uid_candidate/vote", votesController.deleteCurrentVote)
+    router.delete("/concourse/:uid_concourse/candidate/:uid_candidate/vote/:uid_vote", votesController.deleteCurrentVote)
 
     app.use(router)
 }

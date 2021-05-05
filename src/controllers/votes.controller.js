@@ -18,10 +18,17 @@ const getAllVotes = async(req, res) => {
 const deleteCurrentVote = async(req, res) => {
     let uidConcourse = req.params.uid_concourse
     let uidCandidate = req.params.uid_candidate
+    let uidVote = req.params.uid_vote
+
+    
 
     if (uidConcourse != undefined && uidCandidate != undefined) {
-        let response = await deleteVote(uidConcourse, uidCandidate)
-        res.status(response.status).send(response)
+        let response = await deleteVote(uidConcourse+"", uidCandidate+"", uidVote+"")
+        if(response != undefined) {
+            res.status(response.status).send(response)
+        } else {
+            res.status(500).send({status: 500, message: "An error ocurred"})
+        }
     } else {
         res.status(422).send({status: 422, message: `Request missing a required parameter: uid_concourse or uid_candidate`})
     }
