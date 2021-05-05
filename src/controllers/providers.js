@@ -97,14 +97,80 @@ async function getUsers() {
  }
   //END CRUD CONCOURSE
 
+  //CRUD CANDIDATE
+
+ async function setCandidate(uidConcourse, candidate) {
+    var response = await concourseRef.doc(uidConcourse).collection("candidates").doc(candidate.uid).set(candidate).then(() => {
+       return successResponse
+    }).catch((error) => {
+       return {status: 500, message: `${error}`}
+    })
+    return response
+ }
+
+ async function getCandidates(uidConcourse) {
+    var allCandidates = []
+     await concourseRef.doc(uidConcourse).then((value) => {
+       value.forEach(candidate => {
+          allCandidates.push(candidate.data())
+       })
+    })
+    return allCandidates
+ }
+
+ async function getCandidateById(uidConcourse, uidCandidate) {
+    var candidate = await concourseRef.doc(uidConcourse).collection("candidates").doc(uidCandidate).get().then(value => {
+       return value.data()
+    })
+    return candidate
+ }
+
+ async function updateCandidate(uidConcourse, uidCandidate, data) {
+    var response = await concourseRef
+         .doc(uidConcourse)
+         .collection("candidates")
+         .doc(uidCandidate)
+         .update(data)
+         .then(()=> {
+            return {status: 200, message: "successfully updated"}
+         }).catch((error) => {
+            return {status: 500, message: `error: ${error}`}
+         })
+    return response
+ }
+
+ async function deleteCandidate(uidConcourse, uidCandidate) {
+   var response = await concourseRef
+         .doc(uidConcourse)
+         .collection("candidates")
+         .doc(uidCandidate)
+         .delete()
+         .then(() => {
+            return {status: 200, message: "Candidates successfully deleted"}
+         }).catch((error) => {
+            return {status: 500, message: `error: ${error}`}
+         })
+         return response
+ }
+
+
+
+
  module.exports = {
      setUser,
      getUsers,
      getUserById,
      updateUser,
+   
      setConcourse,
      getConcourseById,
      getConcourses,
      deleteConcourse,
-     updateConcourse
+     updateConcourse,
+
+     setCandidate,
+     getCandidateById,
+     getCandidates,
+     updateCandidate,
+     deleteCandidate,
  }
