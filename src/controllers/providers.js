@@ -6,6 +6,7 @@ const bucket = config.defaultBucket
 const {uuid} = require("uuidv4") 
 const usersRef =  firestore.collection("users")
 const concourseRef = firestore.collection("concourses")
+const adsRef = firestore.collection("ads")
 
 const successResponse = {status: 200, message: "created successfully"}
 const errorResponse = {status: 500, message: "An error has occurred"}
@@ -208,6 +209,46 @@ async function getUsers() {
       return response
  }
 
+ // CRUD ADS
+
+ async function setAds(ads) {
+    let response = await adsRef.doc(ads.uid).set(ads).then(()=> {
+       return {status: 200, message: "Ads successfully created"}
+    }).catch(error => {
+       return {status: 500, message: error}
+    })
+    return response
+ }
+
+ async function getAds() {
+    let listAds = []
+    await adsRef.get().then(() => {
+       listAds.forEach((ads) => {
+          listAds.push(ads)
+       })
+    }).catch(error => {
+       console.log(error)
+    })
+    return listAds
+ }
+
+ async function getAdsById(uid) {
+    let ads = await adsRef
+         .doc(uid)
+         .get()
+         .then(value => {
+            return value.data()
+         })
+   return ads
+ }
+
+ async function deleteAds(uid) {
+    let response = await adsRef.doc(uid).delete().then(() => {
+       return {status: 200, message: "Ads successfully deleted"}
+    }).catch((error) => {
+       return {status: 500, message: `error: ${error}`}
+    })
+ }
 
 
  module.exports = {
@@ -230,5 +271,10 @@ async function getUsers() {
 
      setVote,
      getVotes,
-     deleteVote
+     deleteVote,
+
+     setAds,
+     getAds,
+     deleteAds,
+     getAdsById
  }
