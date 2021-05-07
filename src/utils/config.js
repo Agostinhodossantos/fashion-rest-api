@@ -4,7 +4,7 @@ var serviceAccount = require("../../config/serviceAccountKey.json")
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://fashion-2de23-default-rtdb.firebaseio.com",
-  storageBucket: "fashion-2de23-default-rtdb.appspot.com"
+  storageBucket: "fashion-2de23.appspot.com"
 })
 
 var defaultAuth = admin.auth()

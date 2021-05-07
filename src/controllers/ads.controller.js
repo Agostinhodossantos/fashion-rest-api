@@ -2,7 +2,7 @@ const {setAds, getAds, deleteAds,  getAdsById} = require("./providers")
 const {Ads} = require("../models/Ads")
 const {getData, isEmpty} = require("../utils/utils")
 
-const createAds = (req, res) => {
+const createAds = async(req, res) => {
     let ads = null
     try {
         ads = setupAds(req)
@@ -11,23 +11,23 @@ const createAds = (req, res) => {
     }
 
     if(ads != null) {
-        let response = setAds(ads)
+        let response = await setAds(JSON.parse(JSON.stringify(ads)))
         if(response != undefined) {
-            res.status(response.status).send(response)
+            res.status(200).send(response)
         } else {
             res.status(520).send({status: 520, message: `unknown error`})
         }
     }
 }
 
-const getAllAds = (req, res) => {
+const getAllAds = async(req, res) => {
     let adsList = await getAds()
     res.status(200).send(JSON.stringify(adsList))
 }
 
-const deleteCurrentAds = (req, res) => {
+const deleteCurrentAds = async(req, res) => {
     let uid = req.params.id
-    let response = await deleteAds(uid)
+    let response = await deleteAds(uid+"")
     
     if(response != undefined) {
         res.status(response.status).send(response)
@@ -36,11 +36,11 @@ const deleteCurrentAds = (req, res) => {
     }
 }
 
-const getCurrentAds = (req, res) => {
+const getCurrentAds = async(req, res) => {
     let uid = req.params.id
     
     if (uid != undefined) {
-        let ads = getAdsById(uid)
+        let ads = getAdsById(uid+"")
         res.status(200).send(ads)
     } else {
         res.status(400).send({status: 400 ,message: "Request missing a required parameter ID"})

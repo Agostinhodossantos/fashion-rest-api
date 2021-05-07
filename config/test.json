@@ -36,5 +36,15 @@
         "eventUid": 1233, 
         "name": "Agostinho",
         "photoUrl": "url"
+     },
+     
+     "ads":{
+        "uid":123, 
+        "photoUrl": "", 
+        "adPackages": "pro", 
+        "redirectLinkType": "url", 
+        "redirectLink": "google.com", 
+        "createdAt": "20-05-21", 
+        "endAt": "20-06-21"
      }
 }

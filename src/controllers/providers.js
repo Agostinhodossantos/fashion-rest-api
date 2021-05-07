@@ -212,11 +212,14 @@ async function getUsers() {
  // CRUD ADS
 
  async function setAds(ads) {
-    let response = await adsRef.doc(ads.uid).set(ads).then(()=> {
+    let response = await adsRef.doc(ads.uid+"").set(ads).then(()=> {
+       console.log("Success")
        return {status: 200, message: "Ads successfully created"}
     }).catch(error => {
+       console.log(error)
        return {status: 500, message: error}
     })
+
     return response
  }
 
