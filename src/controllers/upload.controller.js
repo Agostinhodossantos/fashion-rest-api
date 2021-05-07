@@ -5,6 +5,8 @@ const {updateUser} = require("./providers")
 
 
 const uploadFile = async(req, res) => {
+    console.log(req.body)
+    console.log(req)
     let file = path.join(__dirname , "../../uploads/"+req.file.filename);
     let destination = "file";
     const url = await serverFileUpload(path.normalize(file) , req.file.filename , destination, req.file);
@@ -16,7 +18,9 @@ const uploadFile = async(req, res) => {
     }
 }
 
+
 const uploadProfile = async(req, res) => {
+    console.log(req.body)
     let uid = req.params.id
     let file = path.join(__dirname , "../../uploads/"+req.file.filename);
     let destination = "profiles";

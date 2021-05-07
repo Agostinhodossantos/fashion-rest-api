@@ -18,7 +18,7 @@ let routes = (app) => {
     router.put("/users/:id", userController.updateUserData)
     router.post("/users/:id/profile", upload.single('file'), uploadController.uploadProfile)
 
-    router.post("/concourse", concourseController.createConcourse)
+    router.post("/concourse",  upload.single('file'),concourseController.createConcourse)
     router.get("/concourses", concourseController.getAllConcourses)
     router.get("/concourses/:id", concourseController.getConcourse)
     router.put("/concourses/:id", concourseController.updateConcourseData)
@@ -26,7 +26,7 @@ let routes = (app) => {
 
     router.get("/concourses/:uid_concourse/candidates/:uid_candidate", candidateController.getCurrentCandidate)
     router.get("/concourses/:id/candidates", candidateController.getAllCandidate)
-    router.post("/concourses/:id/candidate", candidateController.createCandidate)
+    router.post("/concourses/:id/candidate", upload.single('file'),candidateController.createCandidate)
     router.put("/concourses/:uid_concourse/candidates/:uid_candidate", candidateController.updateCurrentCandidate)
     router.delete("/concourses/:uid_concourse/candidates/:uid_candidate", candidateController.deleteCurrentCandidate)
 

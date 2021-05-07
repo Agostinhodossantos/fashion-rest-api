@@ -2,7 +2,9 @@ const { setCandidate, getCandidateById, getCandidates,
         updateCandidate, deleteCandidate,getConcourses} = require("./providers")
 const {Candidate} = require("../models/Candidate")
 const {getData, isEmpty,  existUid} = require("../utils/utils")
-const { v4: uuidv4 } = require('uuid')
+const {v4: uuidv4} = require('uuid')
+const {serverFileUpload} = require("../utils/upload")
+const path = require("path")
 
 const getAllCandidate = async(req, res) => {
     let uid = req.params.id
@@ -104,17 +106,32 @@ const getCurrentCandidate = async(req, res) => {
 }
 
 const createCandidate = async(req, res) => {
+   
     let candidate = null
     let uidConcourse = req.params.id
-
+    let urlPhoto = ""
+    let file = ""
     let concourseList = await getConcourses()
     let exist =  existUid(concourseList, uidConcourse.toString())
-  
-    try {
-        candidate =  setupCandidate(req) 
-    } catch (error) {
-        res.status(422).send({status: 422, message: `error: ${error}`})
+
+
+    if(isEmpty(req.file)) {
+        res.status(422).send({status: 422, message: "Request missing a required parameter photo"})
+    } else {
+        file = path.join(__dirname , "../../uploads/"+req.file.filename);
+        urlPhoto = await serverFileUpload(path.normalize(file) , req.file.filename , "candidates", req.file);    
     }
+ 
+    if (!isEmpty(urlPhoto)) {
+        try {
+            candidate =  setupCandidate(req, urlPhoto) 
+        } catch (error) {
+            res.status(422).send({status: 422, message: `error: ${error}`})
+        }
+    } else {
+        res.status(422).send({status: 422, message: `Photo upload error`})
+    }
+   
 
     
     if(candidate != null) {
@@ -131,14 +148,16 @@ const createCandidate = async(req, res) => {
             res.status(400).send({status: 400 ,message: "Request missing a required parameter ID"})
         }
     }
+
+    
 }
 
-function setupCandidate(req) {
+function setupCandidate(req, url) {
    var uid = req.body.userUid
    var userUid = req.body.userUid
    var eventUid = uuidv4()
    var name = req.body.name
-   var photoUrl = req.body.photoUrl 
+   var photoUrl = url
 
    var errArray = []
    var errMsg = "must not be empty";

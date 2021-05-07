@@ -2,6 +2,8 @@ const { setConcourse, getConcourseById, getConcourses, deleteConcourse, updateCo
 const {Concourse} = require("../models/Concourse")
 const {getData, isEmpty} = require("../utils/utils")
 const { v4: uuidv4 } = require('uuid')
+const path = require("path")
+const {serverFileUpload} = require("../utils/upload")
 
 const getAllConcourses = async(req, res) => {
     let allConcourses = await getConcourses()
@@ -11,6 +13,7 @@ const getAllConcourses = async(req, res) => {
 const updateConcourseData = async(req, res) => {
     let uid = req.body.id
     let concourse = req.body
+
 
     if (uid != undefined && uid != null) {
         if(concourse != undefined && concourse != null) {
@@ -52,11 +55,27 @@ const getConcourse = async(req, res) => {
 
 const createConcourse = async(req, res) => {
     let concourse = null
-    try {
-        concourse = setupConcourse(req)
-    } catch (error) {
-        res.status(422).send({status: 422, message: `error: ${error}`})
+
+    let urlPhoto = ""
+    let file = ""
+
+    if(isEmpty(req.file)) {
+        res.status(422).send({status: 422, message: "Request missing a required parameter photo"})
+    } else {
+        file = path.join(__dirname , "../../uploads/"+req.file.filename);
+        urlPhoto = await serverFileUpload(path.normalize(file) , req.file.filename , "candidates", req.file);    
     }
+
+    if (!isEmpty(urlPhoto)) {
+        try {
+            concourse = setupConcourse(req, urlPhoto)
+        } catch (error) {
+            res.status(422).send({status: 422, message: `error: ${error}`})
+        }
+    } else {
+        res.status(422).send({status: 422, message: `Photo upload error`})
+    }
+   
 
     if(concourse != null) {
         let response = await setConcourse(JSON.parse(JSON.stringify(concourse)))
@@ -64,12 +83,12 @@ const createConcourse = async(req, res) => {
     }
 }
 
-function setupConcourse(req) {
+function setupConcourse(req,  url ) {
     let uid = uuidv4()
     let eventOwnerUid = req.body.eventOwnerUid
     let title = req.body.title 
     let description = req.body.description
-    let photoUrl = req.body.photoUrl
+    let photoUrl = url
     let candidateLimit = req.body.candidateLimit
     let startDateCandidate = req.body.startDateCandidate
     let endDateCandidate = req.body.endDateCandidate
