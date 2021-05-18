@@ -3,7 +3,6 @@ const path = require("path");
 const { isEmpty } = require("../utils/utils");
 const {updateUser} = require("./providers")
 
-
 const uploadFile = async(req, res) => {
     console.log(req.body)
     console.log(req)
@@ -17,7 +16,6 @@ const uploadFile = async(req, res) => {
         res.status(200).send({status: 200, url: `${url}` })
     }
 }
-
 
 const uploadProfile = async(req, res) => {
     console.log(req.body)

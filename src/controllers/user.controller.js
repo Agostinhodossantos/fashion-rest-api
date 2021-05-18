@@ -1,6 +1,7 @@
 const {setUser, getUsers, getUserById, updateUser} = require("./providers")
 const {User} = require("../models/User")
 const {getData, isEmpty} = require("../utils/utils")
+const {uploadProfile} = require("../controllers/upload.controller")
 
 const getUser = async(req, res) => {
     let uid = req.params.id
@@ -56,9 +57,9 @@ function setupUser(req) {
     let uid = req.body.uid
     let name = req.body.name
     let email = req.body.email
-    let biography = ""
-    let phoneNumber = ""
-    let profileUrl = "" // TODO upload photo //
+    let biography = "" 
+    let phoneNumber = "" // TODO phone number
+    let profileUrl = "" // TODO upload photo
     let location = ""
     let gender = ""
     let state = "active"
